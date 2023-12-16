@@ -11,6 +11,7 @@ pub async fn send_tx_simulate(grpc_address: &Uri, tx: Tx) -> Result<SimulateResp
     prost::Message::encode(&tx, &mut tx_bytes)
         .map_err(|e| Error::protobuf_encode(String::from("Transaction"), e))?;
 
+    info!("Calvin: send_tx_simulate raw tx_bytes: {:?}", tx_bytes);
     info!("Calvin: send_tx_simulate tx_bytes: {}", std::str::from_utf8(&tx_bytes).unwrap());
     let req = SimulateRequest {
         tx_bytes,

@@ -1,6 +1,7 @@
 use ibc_proto::cosmos::tx::v1beta1::service_client::ServiceClient;
 use ibc_proto::cosmos::tx::v1beta1::{SimulateRequest, SimulateResponse, Tx};
 use tonic::codegen::http::Uri;
+use tracing::info;
 
 use crate::config::default::max_grpc_decoding_size;
 use crate::error::Error;
@@ -10,6 +11,7 @@ pub async fn send_tx_simulate(grpc_address: &Uri, tx: Tx) -> Result<SimulateResp
     prost::Message::encode(&tx, &mut tx_bytes)
         .map_err(|e| Error::protobuf_encode(String::from("Transaction"), e))?;
 
+    info!("Calvin: send_tx_simulate tx_bytes: {}", std::str::from_utf8(&tx_bytes).unwrap());
     let req = SimulateRequest {
         tx_bytes,
         ..Default::default()

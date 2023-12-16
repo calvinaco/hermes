@@ -100,9 +100,9 @@ impl<ChainA: ChainHandle, ChainB: ChainHandle> Link<ChainA, ChainB> {
             return Ok(vec![]);
         }
 
-        if sequences.len() > 5 {
-            info!("Calvin: Truncating sequences to 5");
-            sequences = sequences[0..5].to_vec();
+        if sequences.len() > 2 {
+            info!("Calvin: Truncating sequences to 2");
+            sequences = sequences[0..2].to_vec();
         }
         info!(
             "{} unreceived packets found: {} ",

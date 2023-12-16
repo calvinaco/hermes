@@ -89,7 +89,7 @@ impl<ChainA: ChainHandle, ChainB: ChainHandle> Link<ChainA, ChainB> {
         .entered();
 
         // Find the sequence numbers of unreceived packets
-        let (sequences, src_response_height) = unreceived_packets(
+        let (mut sequences, src_response_height) = unreceived_packets(
             self.a_to_b.dst_chain(),
             self.a_to_b.src_chain(),
             &self.a_to_b.path_id,
@@ -100,6 +100,10 @@ impl<ChainA: ChainHandle, ChainB: ChainHandle> Link<ChainA, ChainB> {
             return Ok(vec![]);
         }
 
+        if sequences.len() > 5 {
+            info!("Calvin: Truncating sequences to 5");
+            sequences = sequences[0..5].to_vec();
+        }
         info!(
             "{} unreceived packets found: {} ",
             sequences.len(),

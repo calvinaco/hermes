@@ -629,15 +629,6 @@ impl<ChainA: ChainHandle, ChainB: ChainHandle> RelayPath<ChainA, ChainB> {
             }
         }
 
-        if src_od.batch.len() > 5 {
-            info!("Calvin: Truncating src_od.batch to 5");
-            src_od.batch.truncate(5);
-        }
-        if dst_od.batch.len() > 5 {
-            info!("Calvin: Truncating dst_od.batch to 5");
-            src_od.batch.truncate(5);
-        }
-
         let src_od = Some(src_od).filter(|s| !s.batch.is_empty());
         let dst_od = Some(dst_od).filter(|s| !s.batch.is_empty());
 

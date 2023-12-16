@@ -44,7 +44,7 @@ pub async fn estimate_tx_fees(
         signatures: signed_tx.signatures,
     };
 
-    info!("Calvin: Going to estimate fee for tx: {:?}", tx);
+    info!("Calvin: Going to estimate fee for tx: {}", tx.auth_info);
     let estimated_fee =
         estimate_fee_with_tx(gas_config, &config.grpc_address, &config.chain_id, tx).await?;
 
